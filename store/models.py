@@ -36,7 +36,7 @@ class Product(models.Model):
     category = models.CharField(max_length=50, choices=CATEGORY_CHOICES)
     sub_category = models.CharField(max_length=50, choices=SUB_CATEGORY_CHOICES, default='All')
     
-    # السعر الأساسي أو نطاق الأسعار (مثل $25.00 - $40.00)
+    # السعر الأساسي أو نطاق الأسعار
     price = models.DecimalField(max_digits=10, decimal_places=2)
     sale_price = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
     
@@ -58,14 +58,14 @@ class ProductImage(models.Model):
         return f"Image for {self.product.name}"
 
 
-# 2. جدول الأحجام والدرجات (Variants: Shades for Makeup / Sizes for Fragrance & Skincare)
+# 2. جدول الأحجام والدرجات (Variants)
 class ProductVariant(models.Model):
     product = models.ForeignKey(Product, related_name='variants', on_delete=models.CASCADE)
-    variant_name = models.CharField(max_length=100, help_text="اسم الدرجة أو الحجم (مثل: Travel Size, 50ml, Shade: Cherry Glaze)")
+    variant_name = models.CharField(max_length=100, help_text="اسم الدرجة أو الحجم (مثل: Travel Size, 50ml)")
     additional_price = models.DecimalField(max_digits=10, decimal_places=2, default=0.00, help_text="فرق السعر إن وجد")
     
     def __str__(self):
-        return f"{self.product.name} - {self.variant_name}"
+        return f"{self.product.name} ({self.variant_name})"
 
 
 class PromoCode(models.Model):
