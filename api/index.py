@@ -1,18 +1,14 @@
 import os
 import sys
 
-# تحديد المسار الرئيسي للمشروع وإضافته لمسارات بايثون
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-if BASE_DIR not in sys.path:
-    sys.path.append(BASE_DIR)
-
-# إضافة مجلد الموديولات الداخلي إن وجد
-LUMORA_DIR = os.path.join(BASE_DIR, 'lumora_backend')
-if LUMORA_DIR not in sys.path:
-    sys.path.append(LUMORA_DIR)
+# إضافة مسار المشروع الجذري إلى مسارات بايثون
+path = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+if path not in sys.path:
+    sys.path.append(path)
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'lumora_backend.settings')
 
 from django.core.wsgi import get_wsgi_application
 
+# تعريف المتغير app مباشرة وصراحةً لكي يراه Vercel فوراً
 app = get_wsgi_application() 
