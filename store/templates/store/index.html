@@ -1,0 +1,405 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LUMORA | Luxury Beauty & Cosmetics</title>
+    <!-- Tailwind CSS CDN for Sephora-like modern styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS Link with Django static tag -->
+    <link rel="stylesheet" href="{% static 'store/style.css' %}">
+</head>
+<body class="bg-gray-50 text-gray-900 font-sans antialiased">
+
+    <!-- 1. Top Free Shipping Announcement Banner -->
+    <div class="bg-black text-white text-xs font-semibold tracking-widest text-center py-2.5 px-4 uppercase border-b border-gray-800">
+        Free shipping on orders over 4999 EGP
+    </div>
+
+    <!-- 2. Header & Navigation -->
+    <header class="sticky top-0 z-40 bg-white border-b border-gray-200 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                
+                <!-- Admin Quick Toggle Button (For Testing/Management) -->
+                <button onclick="toggleAdminModal()" class="text-xs bg-gray-900 text-gold-400 border border-gold-500/30 hover:bg-black px-3 py-1.5 rounded-full transition flex items-center gap-1.5">
+                    <i class="fa-solid fa-sliders"></i>
+                    <span>Admin Panel</span>
+                </button>
+
+                <!-- Brand Logo -->
+                <div class="text-center">
+                    <a href="#" class="text-3xl font-serif tracking-widest font-bold uppercase text-black hover:opacity-90">LUMORA</a>
+                    <span class="block text-[9px] tracking-[0.3em] text-gray-500 uppercase -mt-1">Luxury Beauty</span>
+                </div>
+
+                <!-- Action Icons -->
+                <div class="flex items-center space-x-6">
+                    <!-- Wishlist (Cart) Trigger Button -->
+                    <button onclick="toggleWishlistDrawer()" class="relative p-2 text-gray-800 hover:text-black transition">
+                        <i class="fa-solid fa-heart text-xl"></i>
+                        <span id="wishlist-count" class="absolute -top-1 -right-1 bg-black text-white text-[10px] font-bold w-5 h-5 rounded-full flex items-center justify-center">0</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Main Navigation Links & Dropdowns -->
+            <nav class="hidden md:flex justify-center space-x-8 py-3 text-xs font-medium uppercase tracking-wider border-t border-gray-100">
+                <!-- MAKEUP Dropdown -->
+                <div class="relative group py-1">
+                    <a href="#makeup" class="hover:text-amber-700 transition flex items-center gap-1">MAKEUP <i class="fa-solid fa-chevron-down text-[9px]"></i></a>
+                    <div class="absolute top-full left-0 hidden group-hover:block bg-white shadow-xl border border-gray-100 py-3 w-48 rounded-b-md z-50">
+                        <a href="#makeup-eye" class="block px-4 py-2 hover:bg-gray-50 text-gray-700">Eye</a>
+                        <a href="#makeup-lips" class="block px-4 py-2 hover:bg-gray-50 text-gray-700">Lips</a>
+                        <a href="#makeup-face" class="block px-4 py-2 hover:bg-gray-50 text-gray-700">Face</a>
+                        <a href="#makeup-sets" class="block px-4 py-2 hover:bg-gray-50 text-gray-700">Makeup Sets</a>
+                        <div class="border-t border-gray-100 my-1"></div>
+                        <a href="#makeup-all" class="block px-4 py-2 hover:bg-gray-50 font-bold text-black">All Makeup</a>
+                    </div>
+                </div>
+
+                <!-- SKINCARE Dropdown -->
+                <div class="relative group py-1">
+                    <a href="#skincare" class="hover:text-amber-700 transition flex items-center gap-1">SKINCARE <i class="fa-solid fa-chevron-down text-[9px]"></i></a>
+                    <div class="absolute top-full left-0 hidden group-hover:block bg-white shadow-xl border border-gray-100 py-3 w-56 rounded-b-md z-50">
+                        <a href="#skincare-korean" class="block px-4 py-2 hover:bg-gray-50 text-gray-700">Korean Skincare</a>
+                        <a href="#skincare-cleanser" class="block px-4 py-2 hover:bg-gray-50 text-gray-700">Cleanser</a>
+                        <a href="#skincare-toner" class="block px-4 py-2 hover:bg-gray-50 text-gray-700">Toner</a>
+                        <a href="#skincare-mask" class="block px-4 py-2 hover:bg-gray-50 text-gray-700">Face Mask</a>
+                        <a href="#skincare-serum" class="block px-4 py-2 hover:bg-gray-50 text-gray-700">Serum</a>
+                        <a href="#skincare-balm" class="block px-4 py-2 hover:bg-gray-50 text-gray-700">Cleansing Balm</a>
+                        <a href="#skincare-scrubs" class="block px-4 py-2 hover:bg-gray-50 text-gray-700">Scrubs & Exfoliating</a>
+                        <div class="border-t border-gray-100 my-1"></div>
+                        <a href="#skincare-all" class="block px-4 py-2 hover:bg-gray-50 font-bold text-black">All Skincare</a>
+                    </div>
+                </div>
+
+                <!-- HAIRCARE Dropdown -->
+                <div class="relative group py-1">
+                    <a href="#haircare" class="hover:text-amber-700 transition flex items-center gap-1">HAIRCARE <i class="fa-solid fa-chevron-down text-[9px]"></i></a>
+                    <div class="absolute top-full left-0 hidden group-hover:block bg-white shadow-xl border border-gray-100 py-3 w-52 rounded-b-md z-50">
+                        <a href="#haircare-japanese" class="block px-4 py-2 hover:bg-gray-50 text-gray-700">Japanese Products</a>
+                        <a href="#haircare-serum" class="block px-4 py-2 hover:bg-gray-50 text-gray-700">Serum</a>
+                        <a href="#haircare-mask" class="block px-4 py-2 hover:bg-gray-50 text-gray-700">Hair Mask</a>
+                        <a href="#haircare-shampoo" class="block px-4 py-2 hover:bg-gray-50 text-gray-700">Shampoo</a>
+                        <a href="#haircare-conditioner" class="block px-4 py-2 hover:bg-gray-50 text-gray-700">Conditioner</a>
+                        <a href="#haircare-oil" class="block px-4 py-2 hover:bg-gray-50 text-gray-700">Oil</a>
+                        <div class="border-t border-gray-100 my-1"></div>
+                        <a href="#haircare-all" class="block px-4 py-2 hover:bg-gray-50 font-bold text-black">All Haircare</a>
+                    </div>
+                </div>
+
+                <!-- FRAGRANCE Dropdown -->
+                <div class="relative group py-1">
+                    <a href="#fragrance" class="hover:text-amber-700 transition flex items-center gap-1">FRAGRANCE <i class="fa-solid fa-chevron-down text-[9px]"></i></a>
+                    <div class="absolute top-full left-0 hidden group-hover:block bg-white shadow-xl border border-gray-100 py-3 w-48 rounded-b-md z-50">
+                        <a href="#fragrance-her" class="block px-4 py-2 hover:bg-gray-50 text-gray-700">For Her</a>
+                        <a href="#fragrance-him" class="block px-4 py-2 hover:bg-gray-50 text-gray-700">For Him</a>
+                        <a href="#fragrance-unisex" class="block px-4 py-2 hover:bg-gray-50 text-gray-700">Unisex</a>
+                        <div class="border-t border-gray-100 my-1"></div>
+                        <a href="#fragrance-all" class="block px-4 py-2 hover:bg-gray-50 font-bold text-black">All Fragrance</a>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Success Toast Notification -->
+    <div id="toast-notification" class="fixed bottom-5 right-5 z-50 hidden bg-black text-white px-5 py-3 rounded-lg shadow-2xl flex items-center space-x-3 transition transform duration-300">
+        <span class="text-green-400 text-lg">✅</span>
+        <span class="text-sm font-medium">Added successfully!</span>
+    </div>
+
+    <!-- Dynamic Hero Banner Section -->
+    <section class="relative bg-neutral-900 text-white h-[450px] flex items-center justify-center text-center px-4 overflow-hidden">
+        {% if banners %}
+            {% with banner=banners.first %}
+                <img src="{{ banner.image_url }}" alt="{{ banner.title }}" class="absolute inset-0 w-full h-full object-cover opacity-50">
+                <div class="relative z-10 max-w-2xl mx-auto">
+                    <h1 class="text-4xl sm:text-5xl font-serif font-bold tracking-tight mb-4 uppercase">{{ banner.title }}</h1>
+                    <a href="#hot-sales" class="inline-block bg-white text-black font-semibold uppercase text-xs tracking-widest px-8 py-3.5 hover:bg-gray-200 transition">Explore Offers</a>
+                </div>
+            {% endwith %}
+        {% else %}
+            <img src="https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?q=80&w=1600" alt="LUMORA" class="absolute inset-0 w-full h-full object-cover opacity-40">
+            <div class="relative z-10 max-w-2xl mx-auto">
+                <h1 class="text-4xl sm:text-5xl font-serif font-bold tracking-tight mb-4">REDEFINE YOUR RADIANCE</h1>
+                <p class="text-gray-200 text-sm sm:text-base mb-6 max-w-lg mx-auto">Discover premium Korean Skincare, Japanese Haircare, and curated global beauty essentials.</p>
+                <a href="#hot-sales" class="inline-block bg-white text-black font-semibold uppercase text-xs tracking-widest px-8 py-3.5 hover:bg-gray-200 transition">Explore Offers</a>
+            </div>
+        {% endif %}
+    </section>
+
+    <!-- Main Content Container -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-16">
+
+        <!-- 3. HOT SALES OFFERS SECTION -->
+        <section id="hot-sales" class="space-y-6">
+            <div class="flex items-center justify-between border-b border-gray-200 pb-4">
+                <div>
+                    <h2 class="text-2xl font-serif font-bold tracking-tight uppercase flex items-center gap-2">
+                        <span>🔥 Hot Sales Offers</span>
+                    </h2>
+                    <p class="text-xs text-gray-500 mt-1">Exclusive discounts on your favorite luxury items</p>
+                </div>
+            </div>
+
+            <!-- Products Grid (Sales) -->
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6" id="sales-products-grid">
+                {% for product in hot_sales %}
+                <div class="bg-white border border-gray-100 rounded-lg overflow-hidden shadow-sm hover:shadow-md transition group relative flex flex-col justify-between">
+                    <div class="relative aspect-square overflow-hidden bg-gray-100">
+                        {% if product.sale_price %}
+                            <span class="absolute top-2 left-2 z-10 bg-red-600 text-white text-[10px] font-bold px-2 py-0.5 uppercase tracking-wider rounded">SALE</span>
+                        {% endif %}
+                        <img src="{{ product.image_url }}" alt="{{ product.name }}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                    </div>
+                    <div class="p-4 flex-1 flex flex-col justify-between">
+                        <div>
+                            <span class="text-[10px] text-gray-400 uppercase font-semibold">{{ product.brand }}</span>
+                            <h3 class="font-medium text-sm text-gray-900 mt-1 line-clamp-1">{{ product.name }}</h3>
+                            
+                            <!-- عرض الـ Variants (الدرجات أو الأحجام) إن وجدت -->
+                            {% if product.variants.all %}
+                            <div class="mt-2 flex flex-wrap gap-1">
+                                {% for variant in product.variants.all %}
+                                    <span class="text-[9px] bg-gray-100 border border-gray-200 px-1.5 py-0.5 rounded text-gray-600">{{ variant.variant_name }}</span>
+                                {% endfor %}
+                            </div>
+                            {% endif %}
+                        </div>
+                        <div class="mt-4">
+                            <div class="flex items-baseline space-x-2">
+                                {% if product.sale_price %}
+                                    <span class="text-base font-bold text-black">{{ product.sale_price }} EGP</span>
+                                    <span class="text-xs text-gray-400 line-through">{{ product.price }} EGP</span>
+                                {% else %}
+                                    <span class="text-base font-bold text-black">{{ product.price }} EGP</span>
+                                {% endif %}
+                            </div>
+                            <button onclick="addToWishlist('{{ product.name }}', '{{ product.price }}')" class="w-full mt-3 bg-black text-white text-xs py-2.5 font-medium hover:bg-gray-800 transition rounded flex items-center justify-center gap-2">
+                                <i class="fa-solid fa-heart"></i> Add to Wishlist
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                {% empty %}
+                    <p class="text-xs text-gray-400 col-span-full">No hot sales available right now.</p>
+                {% endfor %}
+            </div>
+        </section>
+
+        <!-- 4. BEST SELLING SECTION -->
+        <section id="best-selling" class="space-y-6">
+            <div class="border-b border-gray-200 pb-4">
+                <h2 class="text-2xl font-serif font-bold tracking-tight uppercase">✨ Best Selling</h2>
+                <p class="text-xs text-gray-500 mt-1">Most loved beauty products chosen by our community</p>
+            </div>
+
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6" id="bestselling-products-grid">
+                {% for product in best_sellers %}
+                <div class="bg-white border border-gray-100 rounded-lg overflow-hidden shadow-sm hover:shadow-md transition group relative flex flex-col justify-between">
+                    <div class="relative aspect-square overflow-hidden bg-gray-100">
+                        <span class="absolute top-2 left-2 z-10 bg-black text-white text-[10px] font-bold px-2 py-0.5 uppercase tracking-wider rounded">BEST SELLER</span>
+                        <img src="{{ product.image_url }}" alt="{{ product.name }}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                    </div>
+                    <div class="p-4 flex-1 flex flex-col justify-between">
+                        <div>
+                            <span class="text-[10px] text-gray-400 uppercase font-semibold">{{ product.brand }}</span>
+                            <h3 class="font-medium text-sm text-gray-900 mt-1 line-clamp-1">{{ product.name }}</h3>
+                            
+                            {% if product.variants.all %}
+                            <div class="mt-2 flex flex-wrap gap-1">
+                                {% for variant in product.variants.all %}
+                                    <span class="text-[9px] bg-gray-100 border border-gray-200 px-1.5 py-0.5 rounded text-gray-600">{{ variant.variant_name }}</span>
+                                {% endfor %}
+                            </div>
+                            {% endif %}
+                        </div>
+                        <div class="mt-4">
+                            <span class="text-base font-bold text-black">{{ product.price }} EGP</span>
+                            <button onclick="addToWishlist('{{ product.name }}', '{{ product.price }}')" class="w-full mt-3 bg-black text-white text-xs py-2.5 font-medium hover:bg-gray-800 transition rounded flex items-center justify-center gap-2">
+                                <i class="fa-solid fa-heart"></i> Add to Wishlist
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                {% empty %}
+                    <p class="text-xs text-gray-400 col-span-full">No best selling products available right now.</p>
+                {% endfor %}
+            </div>
+        </section>
+
+        <!-- 5. SHOP BY BRAND SECTION -->
+        <section id="shop-by-brand" class="space-y-6 pt-4">
+            <div class="text-center">
+                <h2 class="text-xl font-serif font-bold tracking-tight uppercase">Shop by Brand</h2>
+                <div class="w-12 h-0.5 bg-black mx-auto mt-2"></div>
+            </div>
+            
+            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-4" id="brands-container">
+                <div class="border border-gray-200 py-6 px-4 text-center rounded hover:border-black transition cursor-pointer">
+                    <span class="font-serif font-bold text-sm tracking-wider uppercase">LUMORA Essentials</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- 6. INFORMATIONAL PAGES (Controlled via Admin Panel) -->
+        <section id="info-pages" class="grid md:grid-cols-3 gap-8 pt-10 border-t border-gray-200">
+            <div class="bg-white p-6 border border-gray-100 rounded-lg">
+                <h3 class="font-serif font-bold text-lg mb-3 uppercase tracking-wide">About Us</h3>
+                <p id="about-us-content" class="text-xs text-gray-600 leading-relaxed">
+                    {% if site_content %}{{ site_content.about_us }}{% else %}LUMORA is your ultimate luxury destination for high-end cosmetics...{% endif %}
+                </p>
+            </div>
+
+            <div class="bg-white p-6 border border-gray-100 rounded-lg">
+                <h3 class="font-serif font-bold text-lg mb-3 uppercase tracking-wide">Contact Us</h3>
+                <div id="contact-us-content" class="text-xs text-gray-600 space-y-2">
+                    <p><i class="fa-solid fa-envelope mr-2"></i> support@lumora.com</p>
+                    <p><i class="fa-solid fa-phone mr-2"></i> +20 100 000 0000</p>
+                    <p><i class="fa-solid fa-location-dot mr-2"></i> Mansoura, Egypt</p>
+                </div>
+            </div>
+
+            <div class="bg-white p-6 border border-gray-100 rounded-lg">
+                <h3 class="font-serif font-bold text-lg mb-3 uppercase tracking-wide">Refund & Exchange</h3>
+                <p id="refund-content" class="text-xs text-gray-600 leading-relaxed">
+                    {% if site_content %}{{ site_content.refund_exchange_policy }}{% else %}We offer a 14-day exchange and return policy...{% endif %}
+                </p>
+            </div>
+        </section>
+    </main>
+
+    <!-- 7. WISHLIST / CART SLIDE-OVER DRAWER -->
+    <div id="wishlist-drawer" class="fixed inset-0 z-50 hidden overflow-hidden">
+        <div class="absolute inset-0 bg-black/50 backdrop-blur-sm transition-opacity" onclick="toggleWishlistDrawer()"></div>
+        
+        <div class="fixed inset-y-0 right-0 max-w-full flex pl-10">
+            <div class="w-screen max-w-md bg-white shadow-2xl flex flex-col justify-between">
+                
+                <div class="p-6 border-b border-gray-200 flex items-center justify-between">
+                    <h2 class="text-lg font-serif font-bold uppercase tracking-wider flex items-center gap-2">
+                        <i class="fa-solid fa-heart text-red-500"></i> Your Wishlist
+                    </h2>
+                    <button onclick="toggleWishlistDrawer()" class="text-gray-400 hover:text-black">
+                        <i class="fa-solid fa-xmark text-xl"></i>
+                    </button>
+                </div>
+
+                <div class="p-6 overflow-y-auto flex-1 space-y-6">
+                    <div id="wishlist-items-container" class="space-y-4">
+                        <p class="text-xs text-gray-500 text-center py-8">Your Wishlist is currently empty.</p>
+                    </div>
+
+                    <form id="checkout-form" class="space-y-4 border-t border-gray-200 pt-6">
+                        <h3 class="text-xs font-bold uppercase tracking-wider text-gray-700">1. Customer Details</h3>
+                        <input type="text" placeholder="Full Name" required class="w-full text-xs p-3 border border-gray-300 rounded focus:border-black outline-none">
+                        
+                        <div class="grid grid-cols-2 gap-2">
+                            <input type="tel" placeholder="Phone Number" required class="w-full text-xs p-3 border border-gray-300 rounded focus:border-black outline-none">
+                            <input type="email" placeholder="Gmail Address" required class="w-full text-xs p-3 border border-gray-300 rounded focus:border-black outline-none">
+                        </div>
+
+                        <select id="governorate-select" onchange="calculateShipping()" required class="w-full text-xs p-3 border border-gray-300 rounded focus:border-black outline-none bg-white">
+                            <option value="">Select Governorate for Shipping</option>
+                            <option value="Cairo">Cairo</option>
+                            <option value="Giza">Giza</option>
+                            <option value="Alexandria">Alexandria</option>
+                            <option value="Dakahlia">Dakahlia (Mansoura)</option>
+                            <option value="Other">Other Governorates</option>
+                        </select>
+
+                        <textarea placeholder="Detailed Address (Street, Building, Floor...)" required rows="2" class="w-full text-xs p-3 border border-gray-300 rounded focus:border-black outline-none"></textarea>
+
+                        <div class="pt-2">
+                            <h3 class="text-xs font-bold uppercase tracking-wider text-gray-700 mb-2">2. Promo Code (Optional)</h3>
+                            <div class="flex gap-2">
+                                <input type="text" id="promocode-input" placeholder="Enter Promocode" class="flex-1 text-xs p-3 border border-gray-300 rounded focus:border-black outline-none uppercase">
+                                <button type="button" onclick="applyPromoCode()" class="bg-gray-900 text-white text-xs px-4 rounded hover:bg-black uppercase font-semibold">Apply</button>
+                            </div>
+                            <p id="promo-message" class="text-[11px] mt-1 hidden"></p>
+                        </div>
+
+                        <div class="pt-2">
+                            <h3 class="text-xs font-bold uppercase tracking-wider text-gray-700 mb-2">3. Payment Method</h3>
+                            <div class="space-y-2">
+                                <label class="flex items-center gap-3 p-3 border border-gray-200 rounded cursor-pointer hover:border-black">
+                                    <input type="radio" name="payment" value="cod" checked class="accent-black">
+                                    <span class="text-xs font-medium">Cash on Delivery (COD)</span>
+                                </label>
+                                <label class="flex items-center gap-3 p-3 border border-gray-200 rounded cursor-pointer hover:border-black">
+                                    <input type="radio" name="payment" value="card" class="accent-black">
+                                    <span class="text-xs font-medium">Online Visa / Debit / Credit Card</span>
+                                </label>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="p-6 border-t border-gray-200 bg-gray-50 space-y-3">
+                    <div class="space-y-1 text-xs">
+                        <div class="flex justify-between text-gray-600">
+                            <span>Subtotal:</span>
+                            <span id="summary-subtotal">0 EGP</span>
+                        </div>
+                        <div class="flex justify-between text-gray-600">
+                            <span>Shipping Fee:</span>
+                            <span id="summary-shipping">0 EGP</span>
+                        </div>
+                        <div id="discount-row" class="flex justify-between text-green-600 hidden">
+                            <span>Promo Discount:</span>
+                            <span id="summary-discount">-0 EGP</span>
+                        </div>
+                        <div class="flex justify-between font-bold text-sm text-black pt-2 border-t border-gray-200">
+                            <span>Total Amount:</span>
+                            <span id="summary-total">0 EGP</span>
+                        </div>
+                    </div>
+                    <button type="button" onclick="submitOrder()" class="w-full bg-black text-white py-3 font-semibold text-xs uppercase tracking-widest hover:bg-gray-800 transition">Confirm Order</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 8. ADMIN CONTROL PANEL MODAL -->
+    <div id="admin-modal" class="fixed inset-0 z-50 hidden bg-black/70 backdrop-blur-sm flex items-center justify-center p-4">
+        <div class="bg-white rounded-xl shadow-2xl w-full max-w-4xl max-h-[90vh] flex flex-col overflow-hidden">
+            
+            <div class="p-5 bg-gray-900 text-white flex justify-between items-center">
+                <h2 class="font-serif font-bold text-lg flex items-center gap-2">
+                    <i class="fa-solid fa-sliders text-amber-400"></i> LUMORA Admin Dashboard
+                </h2>
+                <button onclick="toggleAdminModal()" class="text-gray-400 hover:text-white">
+                    <i class="fa-solid fa-xmark text-xl"></i>
+                </button>
+            </div>
+
+            <div class="p-6 overflow-y-auto space-y-8 flex-1">
+                <div class="text-center py-4">
+                    <p class="text-xs text-gray-600">To manage products, variants, images, and banners with full control, please visit the official Django Admin Panel:</p>
+                    <a href="/admin/" target="_blank" class="inline-block mt-3 bg-black text-white text-xs px-6 py-2.5 rounded font-semibold uppercase hover:bg-gray-800 transition">Open Django Admin Panel</a>
+                </div>
+            </div>
+
+            <div class="p-4 bg-gray-100 border-t border-gray-200 flex justify-end">
+                <button onclick="toggleAdminModal()" class="bg-black text-white text-xs px-6 py-2.5 rounded font-semibold uppercase">Close Admin Panel</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer Section -->
+    <footer class="bg-black text-white border-t border-gray-800 py-10 mt-20 text-xs">
+        <div class="max-w-7xl mx-auto px-4 text-center space-y-4">
+            <h2 class="font-serif text-2xl font-bold tracking-widest">LUMORA</h2>
+            <p class="text-gray-400">© 2026 LUMORA Luxury Cosmetics. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- JS Script Link with Django static tag -->
+    <script src="{% static 'store/script.js' %}"></script>
+</body>
+</html> 

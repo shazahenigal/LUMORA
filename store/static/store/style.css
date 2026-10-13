@@ -1,0 +1,219 @@
+/* ==========================================================================
+   LUMORA BEAUTY STORE - CUSTOM STYLESHEET
+   Palette:
+   - Ivory Background: #FFF9F6
+   - Blush Pink Banners/Sections: #F6DDE5
+   - Dusty Rose Buttons & Highlights: #E8B9C9
+   - Plum Brown Typography & Icons: #49313D
+   ========================================================================== */
+
+/* 1. Root Color Variables & Global Reset */
+:root {
+    --bg-ivory: #FFF9F6;
+    --bg-blush: #F6DDE5;
+    --btn-dusty-rose: #E8B9C9;
+    --btn-dusty-rose-hover: #D8A5B6;
+    --text-plum: #49313D;
+    --text-plum-light: #6E4D5E;
+    --border-soft: #EED7DF;
+    --shadow-soft: rgba(73, 49, 61, 0.08);
+}
+
+/* Base Styling */
+body {
+    background-color: var(--bg-ivory) !important;
+    color: var(--text-plum) !important;
+    font-family: 'Playfair Display', Georgia, serif, system-ui, -apple-system, sans-serif;
+}
+
+/* Global Font Overrides for Typography */
+h1, h2, h3, h4, .font-serif, .logo-text {
+    color: var(--text-plum) !important;
+    font-family: 'Playfair Display', Georgia, serif;
+}
+
+p, span, a, label, input, select, textarea, button {
+    color: var(--text-plum);
+}
+
+/* 2. Top Free Shipping Announcement Banner */
+.top-banner, 
+div[class*="bg-black"] {
+    background-color: var(--text-plum) !important;
+    color: var(--bg-ivory) !important;
+}
+
+/* 3. Header & Navigation Adjustments */
+header {
+    background-color: var(--bg-ivory) !important;
+    border-bottom: 1px solid var(--border-soft) !important;
+}
+
+nav a {
+    color: var(--text-plum) !important;
+    transition: color 0.3s ease;
+}
+
+nav a:hover {
+    color: var(--btn-dusty-rose-hover) !important;
+}
+
+/* Dropdowns Styling */
+nav div[class*="absolute"] {
+    background-color: var(--bg-ivory) !important;
+    border: 1px solid var(--border-soft) !important;
+    box-shadow: 0 10px 25px var(--shadow-soft) !important;
+}
+
+/* 4. Hero Banner & Feature Cards (Blush Pink Sections) */
+section, 
+.bg-neutral-900,
+.hero-section,
+.category-card {
+    background-color: var(--bg-blush) !important;
+}
+
+/* Decorative Hero Gradient Blend matching reference */
+.hero-section-wrapper {
+    background: linear-gradient(135deg, var(--bg-blush) 0%, #F3D2DC 100%);
+}
+
+/* 5. Buttons & Interactive Highlights (Dusty Rose) */
+button:not(.text-gray-400), 
+.btn-primary, 
+a[href*="#"]:not(.block):not(.text-black) {
+    background-color: var(--btn-dusty-rose) !important;
+    color: var(--text-plum) !important;
+    font-weight: 600;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+button:hover, 
+.btn-primary:hover {
+    background-color: var(--btn-dusty-rose-hover) !important;
+    transform: translateY(-1px);
+}
+
+/* Wishlist Badge Icon */
+#wishlist-count {
+    background-color: var(--text-plum) !important;
+    color: var(--bg-ivory) !important;
+}
+
+/* 6. Product Cards (Matching Reference Layout) */
+.product-card,
+#sales-products-grid > div,
+#bestselling-products-grid > div {
+    background-color: var(--bg-ivory) !important;
+    border: 1px solid var(--border-soft) !important;
+    border-radius: 12px;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.product-card:hover,
+#sales-products-grid > div:hover,
+#bestselling-products-grid > div:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 24px var(--shadow-soft);
+}
+
+/* Badges (Sale / Discount) */
+.sale-badge {
+    background-color: var(--text-plum) !important;
+    color: var(--bg-ivory) !important;
+}
+
+/* Price Display */
+.price-current {
+    color: var(--text-plum) !important;
+    font-weight: 700;
+}
+
+.price-old {
+    color: var(--text-plum-light) !important;
+    opacity: 0.6;
+}
+
+/* Add to Wishlist Buttons inside Cards */
+.product-card button,
+#sales-products-grid button,
+#bestselling-products-grid button {
+    background-color: var(--btn-dusty-rose) !important;
+    color: var(--text-plum) !important;
+    border: none;
+    border-radius: 6px;
+}
+
+.product-card button:hover,
+#sales-products-grid button:hover,
+#bestselling-products-grid button:hover {
+    background-color: var(--btn-dusty-rose-hover) !important;
+}
+
+/* 7. Shop by Brand Section */
+#brands-container > div {
+    background-color: var(--bg-ivory) !important;
+    border: 1px solid var(--border-soft) !important;
+    color: var(--text-plum) !important;
+    border-radius: 8px;
+}
+
+#brands-container > div:hover {
+    border-color: var(--text-plum) !important;
+    background-color: var(--bg-blush) !important;
+}
+
+/* 8. Wishlist Drawer & Checkout Panel */
+#wishlist-drawer > div > div {
+    background-color: var(--bg-ivory) !important;
+}
+
+#wishlist-drawer header, 
+#wishlist-drawer .border-b,
+#wishlist-drawer .border-t {
+    border-color: var(--border-soft) !important;
+}
+
+/* Form Inputs & Selects */
+input[type="text"],
+input[type="tel"],
+input[type="email"],
+input[type="number"],
+input[type="date"],
+select,
+textarea {
+    background-color: var(--bg-ivory) !important;
+    border: 1px solid var(--border-soft) !important;
+    color: var(--text-plum) !important;
+}
+
+input:focus, select:focus, textarea:focus {
+    border-color: var(--text-plum) !important;
+    outline: none !important;
+}
+
+/* 9. Admin Dashboard Overlay */
+#admin-modal > div {
+    background-color: var(--bg-ivory) !important;
+    border: 1px solid var(--border-soft);
+}
+
+#admin-modal .bg-gray-900 {
+    background-color: var(--text-plum) !important;
+}
+
+/* 10. Footer Section */
+footer {
+    background-color: var(--text-plum) !important;
+    color: var(--bg-ivory) !important;
+}
+
+footer p, footer h2, footer a {
+    color: var(--bg-ivory) !important;
+}
+
+/* Smooth Scroll Behaviour */
+html {
+    scroll-behavior: smooth;
+} 
