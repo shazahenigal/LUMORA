@@ -1,15 +1,15 @@
 import os
 import sys
 
-# إضافة المسار الحالي والمجلد الرئيسي للـ sys.path
-path = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-if path not in sys.path:
-    sys.path.append(path)
+# إضافة المسارات المطلوبة
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+if BASE_DIR not in sys.path:
+    sys.path.append(BASE_DIR)
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'lumora_backend.settings')
 
 from django.core.wsgi import get_wsgi_application
 
-# استدعاء تطبيق الـ WSGI وتصديره كـ app
+# Vercel يتعرف على app أو application كـ handler
 application = get_wsgi_application()
 app = application 
