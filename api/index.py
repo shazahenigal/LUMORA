@@ -7,7 +7,10 @@ if path not in sys.path:
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'lumora_backend.settings')
 
-from django.core.wsgi import get_wsgi_application
-
-# تعريف المتغير بشكل صريح ومباشر ليراه Vercel فوراً
-app = get_wsgi_application() 
+try:
+    from django.core.wsgi import get_wsgi_application
+    app = get_wsgi_application()
+except Exception as e:
+    import traceback
+    print("CRITICAL DJANGO ERROR:", traceback.format_exc())
+    raise e 
